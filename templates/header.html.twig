@@ -1,0 +1,405 @@
+    <!-- menu -->
+    <nav style="background-color:#000000; color:#000000;">
+	{% if is_granted('ROLE_HABITANT') %}
+	<div class='container-fluid'>
+        <div class="offcanvas-body" >
+
+						<div class="fs-4 text-center " style="background-color:#4B0082;color:#fff;" >
+							
+							HABITANT
+						</div>
+					
+						<ul class="nav nav-pills flex-column mb-auto ">
+							<li>
+								<a href="{{ path('app_demande_inscription')}}" class="nav-link link-light ">
+									 Demande D'inscription
+								</a>
+							</li>
+							<li>
+								<a href="{{path('app_habitant_demandes_certificat',{id:-1})}}" class="nav-link link-light ">
+									Demande De Certificat
+								</a>
+							</li>
+							
+								
+									<li>
+										<a class="nav-link link-light " href="{{path('app_habitant_lister_certificat')}}">
+										Liste  Des Demandes De Certificat
+										</a>
+									</li>
+									<li>
+										<a class="nav-link link-light " href="{{path('app_habitant_lister_inscription')}}">
+										Liste  Des Demandes D'inscription
+										</a>
+									</li>
+
+
+								
+							
+
+							<li>
+								<a href="{{path('app_habitant_lister_residences')}}" class="nav-link link-light ">
+									Mes résidences
+								</a>
+							</li>
+
+						</ul><hr>
+					
+						{% if is_granted('ROLE_MAIRE')   %}
+							<div class="fs-4 text-center w-full"style="background-color:#4B0082;color:#fff;">
+								<!--<i class="fa-solid fa-user"></i>-->
+								MENU MAIRE
+							</div>
+							<ul class="nav nav-pills flex-column mb-auto" style="color=#ffff;">
+								<li class="nav-item dropdown ">
+									<a class="nav-link link-light text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#ffff;">
+										<i class="fa-solid fa-house text-purple"style="color:#4B0082"></i> 
+										Quartier
+									</a>
+									<ul class="dropdown-menu"style="color:#ffff;background-color:#000000">
+										<li>
+											<a class="dropdown-item" href="{{path('app_maire_lister_quartier')}}">lister les quartiers</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="{{path('app_maire_ajouterunquartier')}}">Ajouter un quarier</a>
+										</li>
+									</ul>
+								</li>
+								<li class="nav-item dropdown ">
+									<a class="nav-link  link-light text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="fa-solid fa-user "style="color:#4B0082"></i>
+										 Délégué
+									</a>
+									<ul class="dropdown-menu"style="color:#ffff;background-color:#000000">
+										<li>
+											<a class="dropdown-item" href="{{path('app_maire_lister_delegue')}}">lister les délégués</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="{{path('app_maire_lister_quartiersansdelegue')}}">Ajouter un délégué</a>
+										</li>
+									</ul>
+								</li>
+										<li>
+											<a class="nav-link link-dark text-light" href="{{path('app_mairedelegue_lister_habitant')}}">Lister les habitants</a>
+										</li>
+										
+									</ul>
+								</li>
+							</ul><hr>
+
+
+						{% endif %}
+
+						{% if is_granted('ROLE_DELEGUE')   %}
+							<div class="fs-4 text-center w-full"style="background-color:#4B0082;color:#ffff;">
+								
+								MENU DELEGUE
+							</div>
+							<hr>
+							<ul class="nav nav-pills flex-column mb-auto">
+								<li class="nav-item dropdown ">
+									<a class="nav-link link-light  dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									 	Lister Les Demandes
+									</a>
+									<ul class="dropdown-menu ">
+										<li>
+											<a class="dropdown-item" href="{{path('app_delegue_lister_certificat')}}">Demandes De Certificats</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="{{path('app_delegue_lister_inscription')}}">Demandes D'inscriptions</a>
+										</li>
+
+
+									</ul>
+								</li>
+
+								<li class="nav-item dropdown ">
+									<a class="nav-link link-light  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										 Habitants
+									</a>
+									<ul class="dropdown-menu">
+										<li>
+											<a class="dropdown-item" href="{{path('app_mairedelegue_lister_habitant')}}">Lister Les Habitants</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="{{path('app_delegue_supprimerhabitant')}}">Supprimer Un Habitant</a>
+										</li>
+
+
+									</ul>
+								</li>
+
+
+								<li>
+									<a href="{{path('app_delegue_fournir_certificat')}}" class="nav-link link-light ">
+										Fournir un Certificat
+									</a>
+								</li>
+
+
+								<li class="border-top my-3"></li>
+
+							</ul>
+
+
+						{% endif %}
+
+
+						
+						</div>
+					</div>
+				{% endif %}
+    </nav>
+ 
+    <!-- main article -->
+	    <!-- main article -->
+    
+    <style>
+	/* Revealing 3D Menu CSS */
+body
+{
+	font-family: sans-serif;
+	font-size: 100%;
+	padding: 0;
+	margin: 0;
+	color: #000000;
+	background-color: #ffff;
+}
+
+/* main page */
+article
+{
+	position: fixed;
+	width: 100%;
+	left: 0;
+	top: 100px;
+	right: 0;
+	bottom: 0;
+	padding: 30px 15%;
+	background-color: #fff;
+	overflow: auto;
+	z-index: 0;
+	-webkit-transform-origin: 0 50%;
+	-moz-transform-origin: 0 50%;
+	-ms-transform-origin: 0 50%;
+	-o-transform-origin: 0 50%;
+	transform-origin: 0 50%;
+}
+
+
+article:after
+{
+	position: absolute;
+	content: ' ';
+	left: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+/*	background-image: -webkit-linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+	background-image: -moz-linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+	background-image: -ms-linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+	background-image: -o-linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+	background-image: linear-gradient(right, rgba(0,0,0,0.2) 0%, transparent 100%);
+	pointer-events: none;*/
+}
+
+/* navigation */
+nav
+{
+	position: absolute;
+	left: -20em;
+	top: 0;
+	bottom: 0;
+	background-color: #ffff;
+	border-right: 50px solid #ffff;
+	box-shadow: 4px 0 5px rgba(0,0,0,0.2);
+	z-index: 1;
+	cursor: pointer;
+}
+
+nav:after
+{
+	position: absolute;
+	content: ' ';
+	width: 0;
+	height: 0;
+	right: -50px;
+	top: 50%;
+	border-width: 15px 10px;
+	border-style: solid;
+	color:#ffff;
+	border-color: transparent transparent transparent #000000;
+}
+
+nav ul
+{
+	width: 19em;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav a:link, nav a:visited
+{
+	display: solid;
+	width: 100%;
+	font-weight: bold;
+	line-height: 2.5em;
+	text-indent: 10px;
+	text-decoration: none;
+	color: #fff;
+	border-radius: 4px;
+	outline: 0 none;
+}
+
+nav a:hover, nav a:focus
+{
+	color: #fff;
+	background-color: #ffff;
+	text-shadow: 0 0 4px #fff;
+	box-shadow: inset 0 2px 2px rgba(0,0,0,0.2);
+}
+
+ /*hovering */
+article, article:after, nav, nav *
+{
+	-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	transition: all 600ms ease;
+}
+
+nav:hover
+{
+	left: 0;
+}
+
+nav:hover ~ article
+{
+	-webkit-transform: translateX(16em) perspective(600px) rotateY(10deg);
+	-moz-transform: translateX(16em) perspective(600px) rotateY(10deg);
+	-ms-transform: translateX(16em) perspective(600px) rotateY(10deg);
+	-o-transform: translateX(16em) perspective(600px) rotateY(10deg);
+	transform: translateX(16em) perspective(600px) rotateY(10deg);
+}
+
+nav:hover ~ article:after
+{
+	left: 60%;
+}
+
+/* typography */
+footer
+{
+	margin-top: 2em;
+	border-top: 1px dotted #999;
+}
+
+h1
+{
+	font-size: 2.5em;
+	font-weight: normal;
+	margin: 0 0 0.2em 0;
+}
+
+p
+{
+	line-height: 1.3em;
+	margin: 0 0 1.5m 0;
+}
+
+.lead {
+  font-weight:100;
+  font-size:21px;
+}
+
+picture {
+  width:100%;
+  height:auto;
+  display:block;
+}
+	</style>
+
+
+
+
+
+
+
+
+
+<div class='container-fluid'>
+	{% if is_granted('ROLE_HABITANT') %}
+		<header class="py-3 mb-3 border-bottom">
+			<div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
+				<button class="btn " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></button>
+
+				<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasScrollingLabel">
+							
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					
+				</div>
+
+				<div class="d-flex align-items-center">
+					{% if is_granted('ROLE_MAIRE')   %}
+						<form class="w-100 me-3" action="{{path('app_mairedelegue_rechercher_habitant')}}" role="search">
+							<input  name='info' type="search" class="form-control" placeholder="chercher une personne ..." aria-label="Search">
+						</form>
+					{% elseif is_granted('ROLE_DELEGUE') %}
+
+						<form class="w-100 me-3" method='GET' action="{{path('app_mairedelegue_rechercher_habitant')}}" role="search">
+							<input  name='info' type="search" class="form-control" placeholder="chercher une personne ..." aria-label="Search">
+						</form>
+						&emsp;
+
+						<button type="button" class="btn btn-primary position-relative">
+							<a href="{{path('app_delegue_lister_inscription')}}">
+								<i class="fa-solid fa-bell text-white"></i>
+							</a>
+
+
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								{{nombreDemandeInscriptionNonTraiter(app.user)}}
+								<span class="visually-hidden">unread messages</span>
+							</span>
+
+						</button>
+						&emsp;&emsp;
+
+					{% else %}
+
+						<form class="w-100 me-3" role="search">
+							<input type="hidden" class="form-control" placeholder="Search..." aria-label="Search">
+						</form>
+
+					{% endif %}
+
+					<div class="flex-shrink-0 dropdown">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fa-solid fa-user"></i>
+							{{app.user.prenom}}
+							{{app.user.nom}}
+						</a>
+						<ul class="dropdown-menu text-small shadow">
+
+							<li>
+								<a class="dropdown-item  btn btn-" href="{{path('app_principal')}}"><i class="fa-solid fa-user"></i>  Profil</a>
+								<a class="dropdown-item  btn btn-" href="{{path('app_modifiercompte')}}"><i class="fa-sharp fa-solid fa-id-card-clip"></i> Modifier mes informations</a>
+								<a class="dropdown-item  btn btn-" href="/logout"><i class="fa-solid fa-right-from-bracket text-danger"></i>  Déconnexion</a>
+								
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</header>
+	{% endif %}
+	
+
+</div>

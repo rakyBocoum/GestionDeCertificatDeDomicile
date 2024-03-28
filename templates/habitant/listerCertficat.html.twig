@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+	<div class="countainer-fluid">
+		{% for message in app.flashes('info') %}
+			<div class="alert alert-danger" role="alert">
+
+				{{ message }}
+			</div>
+		{% endfor %}
+		<h1 class='text-center'>Liste De Mes Certicats Demandés<br><b>Vous pouvez à tout moment
+			    télécharger vos certificats valides</b>
+		</h1>
+		<h2 class='text-center'>
+
+			{{pagination.getTotalItemCount}}
+			demande(s) de certificat(s) effectué(es)
+
+
+		</h2>
+
+
+		<div class="table-responsive">
+
+			<table class="table ">
+				<thead class='text-center '>
+					<tr>
+						<th scope="col">Date De Demande</th>
+
+						<th scope="col">Quartier</th>
+						<th scope="col">Commune</th>
+						<th scope="col">Départment</th>
+						<th scope="col">Région</th>
+						<th scope="col">Etat De Demande</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+					<tbody class="text-center ">
+					{% for demande in pagination %}
+						<tr>
+
+							<td>{{ demande.datedemande | date('d-m-Y') }},
+								{{ demande.datedemande | date('H:i:s') }}</td>
+
+							<td>{{demande.quartier}}
+							</td>
+							<td>{{demande.quartier.commune}}</td>
+							<td>{{demande.quartier.commune.departement}}</td>
+							<td>{{demande.quartier.commune.departement.region}}</td>
+							<td>{{demande.etatdemande}}</td>
+							<td>
+								
+									<a href="{{path('app_habitant_telecharger_certificat',{id:demande.id})}}" class='text-decoration-none text-primary'>télécharger</a>
+								
+
+							</td>
+
+						</tr>
+
+					{% endfor %}
+
+				</tbody>
+
+			</table>
+
+
+		</div>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<div class="navigation container-fluid text-wrap w-auto">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+			</ul>
+		</nav>
+	</div>
+
+</article>
+{% endblock %}

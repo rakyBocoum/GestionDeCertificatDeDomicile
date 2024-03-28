@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+
+{% for message in app.flashes('info') %}
+	<div class="alert alert-danger" role="alert">
+
+		{{ message }}
+	</div>
+{% endfor %}
+					
+ 
+       
+ <article>
+    
+	<div class="list-group w-50 m-auto ">
+		
+		<h1 class="list-group w-50 m-auto">Informations</h1>
+		<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+			<i class="fa-solid fa-user "style="color:#4B0082"></i>
+			<div class="d-flex gap-2 w-100 justify-content-between">
+				<div>
+					<h6 class="mb-0">Nom</h6>
+					<p class="mb-0 opacity-75">{{app.user.nom}}</p>
+				</div>
+				<small class="opacity-50 text-nowrap"></small>
+			</div>
+		</a>
+		<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+			
+			<i class="fa-solid fa-user "style="color:#4B0082"></i>
+			<div class="d-flex gap-2 w-100 justify-content-between ">
+				<div>
+					<h6 class="mb-0 ">Prenom</h6>
+					<p class="mb-0 opacity-75">{{app.user.prenom}}</p>
+				</div>
+				<small class="opacity-50 text-nowrap"></small>
+			</div>
+		</a>
+		<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+			<i class="fa-solid fa-house " style="color:#4B0082"></i>
+			<div class="d-flex gap-2 w-100 justify-content-between">
+				<div>
+					<h6 class="mb-0">Lieu de Naissance</h6>
+					<p class="mb-0 opacity-75">{{app.user.lieunaissance}}</p>
+				</div>
+				<small class="opacity-50 text-nowrap"></small>
+			</div>
+		</a>
+
+		<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+			<i class="fa-regular fa-calendar-days"style="color:#4B0082"></i>
+			<div class="d-flex gap-2 w-100 justify-content-between">
+				<div>
+					<h6 class="mb-0">Date de Naissance</h6>
+					<p class="mb-0 opacity-75">{{app.user.datenaissance|date("d/m/Y")}}</p>
+				</div>
+				<small class="opacity-50 text-nowrap"></small>
+
+			</div>
+		</a>
+
+		<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+			<i class="fa-solid fa-envelope "style="color:#4B0082"></i>
+			<div class="d-flex gap-2 w-100 justify-content-between">
+				<div>
+					<h6 class="mb-0">Email</h6>
+					<p class="mb-0 opacity-75">{{app.user.email}}</p>
+				</div>
+				<small class="opacity-50 text-nowrap"></small>
+			</div>
+		</a>
+		<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+			<i class="fa-solid fa-phone"style="color:#4B0082"></i>
+			<div class="d-flex gap-2 w-100 justify-content-between">
+				<div>
+					<h6 class="mb-0">Telephone</h6>
+					<p class="mb-0 opacity-75">{{app.user.telephone}}</p>
+				</div>
+				<small class="opacity-50 text-nowrap"></small>
+			</div>
+		</a>
+		{% if is_granted('ROLE_MAIRE')   %}
+			<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+				<i class="fa-solid fa-user-doctor"style="color:#4B0082"></i>
+				<div class="d-flex gap-2 w-100 justify-content-between">
+					<div>
+						<h6 class="mb-0">Rôle</h6>
+						<p class="mb-0 opacity-75">Maire</p>
+					</div>
+					<small class="opacity-50 text-nowrap"></small>
+				</div>
+			</a>
+		{% elseif is_granted('ROLE_DELEGUE')   %}
+			<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+				<i class="fa-solid fa-user-doctor"style="color:#4B0082"></i>
+				<div class="d-flex gap-2 w-100 justify-content-between">
+					<div>
+						<h6 class="mb-0">Role</h6>
+						<p class="mb-0 opacity-75">Dèlèguè</p>
+					</div>
+					<small class="opacity-50 text-nowrap"></small>
+				</div>
+			</a>
+		{% else   %}
+			<a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+				<i class="fa-solid fa-user-doctor "style="color:#4B0082"></i>
+				<div class="d-flex gap-2 w-100 justify-content-between">
+					<div>
+						<h6 class="mb-0">Role</h6>
+						<p class="mb-0 opacity-75">Habitants</p>
+					</div>
+					<small class="opacity-50 text-nowrap"></small>
+				</div>
+			</a>
+		{% endif %}
+		
+		
+	</div>
+</article>
+
+{% endblock %}

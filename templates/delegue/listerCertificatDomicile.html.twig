@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+	<div class="countainer-fluid">
+	{% for message in app.flashes('info') %}
+						<div class="alert alert-danger" role="alert">
+
+							{{ message }}
+						</div>
+					{% endfor %}
+	<h1 class='text-center'>Liste Des Demandes De Certificats Effectués Dans Votre Commune</h1>
+		<h2 class='text-center'>
+		
+		{{pagination.getTotalItemCount}} demande(s) de certificat(s) effectué(es)
+		
+		
+			
+		</h2>
+	
+	<div class="table-responsive">
+
+		<table class="table  ">
+				<thead class='text-center '>
+               <tr>
+					<th scope="col" rowspan="2">Date De Demande</th>
+					<th colspan="4"scope="col">Information Du propriétaire Du Certicat</th>
+					
+					<th rowspan="2" scope="col">Action</th>
+				</tr>
+				<tr>
+					
+					<th scope="col">Nom</th>
+					<th scope="col">Prénom</th>
+					<th scope="col">Lieu De Naissance</th>
+					<th scope="col">Fonction</th>
+					
+				</tr>
+			</thead>
+			<tbody class="text-center ">
+				{% for demande in pagination %}
+					<tr>
+
+						<td>{{ demande.datedemande | date('d-m-Y') }},
+							{{ demande.datedemande | date('H:i:s') }}</td>
+						
+
+						<td>{{demande.Habitant.nom}}
+						</td>
+						<td>{{demande.Habitant.prenom}}</td>
+						<td>{{demande.Habitant.lieunaissance}}</td>
+						<td>{{demande.Habitant.fonction}}</td>
+						
+                         <td>
+						 <button type="button" class="btn btn-primary ">	
+                        <a class=" dropdown-item" href="{{path('app_delegue_reponse_certificat',{id:demande.id,type:'accepter'})}}">Accepter</a>	
+                        </button>
+						<button type="button" class="btn btn-danger ">	
+						<a class="dropdown-item" href="{{path('app_delegue_reponse_certificat',{id:demande.id,type:'refuser'})}}">Refuser</a>
+                        </button>
+                        
+                        </td>
+						
+
+
+					</tr>
+
+				{% endfor %}
+
+			</tbody>
+
+		</table>
+		
+
+	</div>
+  <nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<div class="navigation container-fluid text-wrap w-auto">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+			</ul>
+		</nav>
+  </div>
+</article>
+
+{% endblock %}

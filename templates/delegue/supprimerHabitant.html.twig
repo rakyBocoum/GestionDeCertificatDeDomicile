@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+
+
+
+					<h1 class="text-white">Suppression
+					</h1>
+                    <h2 class="text-white">Saisissez une adresse e-mail
+					</h2>
+					{% for message in app.flashes('info') %}
+						<div class="alert alert-danger" role="alert">
+
+							{{ message }}
+						</div>
+					{% endfor %}
+					{% for message in app.flashes('success') %}
+						<div class="alert alert-success" role="alert">
+							{{ message }}
+						</div>
+
+					{% endfor %}
+
+				</div>
+
+				<div class="row g-3 ">
+
+					<div class="col-md-7 col-lg-8 m-auto">
+						{{ form_start(form, {'attr': {'novalidate': '','class':'needs-validation'}}) }}
+						<div class="row g-3">
+
+							<div class="col-12">
+								{{ form_label(form, 'Adresse E-Mail', {'label_attr': {'class': 'form-label'}}) }}
+
+								{{ form_widget(form.email) }}
+								<div class="invalid-feedback">
+									obligatoire!
+								</div>
+								<div class='text-danger'>
+									{{ form_errors(form.email) }}
+								</div>
+							</div>
+							<div class="col  w-75 align-items-center ">
+								{{ form_row(form.valider) }}
+							</div>
+
+
+							{{ form_end(form) }}
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+</article>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+'use strict'
+
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+const forms = document.querySelectorAll('.needs-validation')
+
+// Loop over them and prevent submission
+Array.from(forms).forEach(form => {
+form.addEventListener('submit', event => {
+if (!form.checkValidity()) {
+event.preventDefault()
+event.stopPropagation()
+}
+
+form.classList.add('was-validated')
+}, false)
+})
+})()
+	</script>
+
+</div>{% endblock %}

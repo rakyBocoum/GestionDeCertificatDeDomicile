@@ -1,0 +1,100 @@
+
+	{% extends 'base.html.twig' %}
+
+	{% block title %}Modification mot de passe
+	{% endblock %}
+	{% block stylesheets %}{% endblock %}
+
+	{% block body %}
+
+
+	<div class="container  min-vh-100   d-flex justify-content-center align-items-center  ">
+		<div class="container      d-flex justify-content-center align-items-center  shadow-lg p-3 mb-10  rounded " style="background-color:#dfe4e9">
+			<main class="border  w-75 text-center  p-2 text-dark bg-primary   shadow-lg p-3 mb-5  rounded">
+				<div class="py-5 text-center">
+					<a href='/' title="aller à la page d'acceuil">
+						<img src="{{asset('image/logo.jpg')}}" class="bi me-2" width="250" height="70" role="img" aria-label="Bootstrap"></a>
+
+				</img>
+				<h1>Modifier votre mot de passe</h1>
+
+			</div>
+
+			<div class="row g-3 justify-content-center text-white">
+
+				<div class="col-md-7 col-lg-8">
+					{{ form_start(resetForm, {'attr': {'novalidate': '','class':'needs-validation'}}) }}
+					<div class="row g-3">
+						
+						<div class="col-12">
+							{{ form_label(resetForm.plainPassword.first, 'MOT DE PASSE', {'label_attr': {'class': 'form-label'}}) }}
+
+							{{ form_widget(resetForm.plainPassword.first) }}
+							<div class="invalid-feedback">
+								obligatoire!
+							</div>
+							<div class='text-danger'>
+								{{ form_errors(resetForm.plainPassword.first) }}
+							</div>
+						</div>
+						<div class="col-12">
+							{{ form_label(resetForm.plainPassword.second, 'CONFIRMATION DU MOT DE PASSE', {'label_attr': {'class': 'form-label'}}) }}
+
+							{{ form_widget(resetForm.plainPassword.second) }}
+							<div class="invalid-feedback">
+								obligatoire!
+							</div>
+							<div class='text-danger'>
+								{{ form_errors(resetForm.plainPassword.first) }}
+							</div>
+						</div>
+						<div class="col-sm-6 ">
+							{{ form_row(resetForm.valider) }}
+						</div>
+
+						<div class="col-sm-6">
+							<button class="w-100 btn btn-danger btn-lg border border-white" type="reset">Effacer</button>
+
+						</div>
+
+
+						{{ form_end(resetForm) }}
+					</div>
+				</div>
+			</main>
+			</div>
+
+			<div class="mx-auto" style="height: 200px;">
+		</div>
+
+</div>
+	{% endblock %}
+	{% block javascripts %}
+  <script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+ 
+
+
+
+
+	
+	{% endblock %}

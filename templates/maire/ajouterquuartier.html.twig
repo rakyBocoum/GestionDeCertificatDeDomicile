@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+
+	<div class="container  min-vh-75   d-flex justify-content-center align-items-center  ">
+		<div class="container d-flex justify-content-center align-items-center ">
+			<main class="border  w-75 text-center  p-2  bg-opacity-5 shadow-lg p-3 mb-5  rounded "style="background-color:#cfa0e9;">
+				<div class="py-5 text-center">
+
+					<h1 class="text" style="color=#090808;">Ajout D'un Nouveau Quartier
+					</h1>
+					{% for message in app.flashes('info') %}
+						<div class="alert alert-danger" role="alert">
+
+							{{ message }}
+						</div>
+					{% endfor %}
+					{% for message in app.flashes('success') %}
+						<div class="alert alert-success" role="alert">
+							{{ message }}
+						</div>
+
+					{% endfor %}
+
+				</div>
+
+				<div class="row g-3 justify-content-center text-white">
+
+					<div class="col-md-7 col-lg-8">
+						{{ form_start(form, {'attr': {'novalidate': '','class':'needs-validation'}}) }}
+						<div class="row g-3">
+
+							<div class="col-12">
+								{{ form_label(form, 'Nom Du Nouveau Quartier', {'label_attr': {'class': 'form-label'}}) }}
+
+								{{ form_widget(form.nom) }}
+								<div class="invalid-feedback">
+									obligatoire!
+								</div>
+								<div class='text-danger'>
+									{{ form_errors(form.nom) }}
+								</div>
+							</div>
+							<div class="col  w-75 align-items-center" style="background-color:#4B0082; color:#fff;">
+								{{ form_row(form.valider) }}
+							</div>
+
+
+							{{ form_end(form) }}
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+</article>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+'use strict'
+
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+const forms = document.querySelectorAll('.needs-validation')
+
+// Loop over them and prevent submission
+Array.from(forms).forEach(form => {
+form.addEventListener('submit', event => {
+if (!form.checkValidity()) {
+event.preventDefault()
+event.stopPropagation()
+}
+
+form.classList.add('was-validated')
+}, false)
+})
+})()
+	</script>
+
+</div>{% endblock %}

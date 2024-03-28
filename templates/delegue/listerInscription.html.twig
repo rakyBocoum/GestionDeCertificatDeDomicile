@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+	<div class="countainer-fluid">
+	{% for message in app.flashes('info') %}
+						<div class="alert alert-danger" role="alert">
+
+							{{ message }}
+						</div>
+					{% endfor %}
+	<h1 class='text-center'>Liste Des Demandes D'inscriptions </h1>
+		<h2 class='text-center'>
+		
+		{{pagination.getTotalItemCount}} demande(s) d'inscription(s) effectué(es)
+		
+		
+			
+		</h2>
+	
+	<div class="table-responsive">
+
+		<table class="table t ">
+				<thead class='text-center 'style="background-color:#555b61;">
+				<tr>
+					<th scope="col">Date De Demande</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Prénom</th>
+					<th scope="col">Lieu De Naissance</th>
+					<th scope="col">Fonction</th>
+					<th scope="col">Plus D'info</th>
+				</tr>
+			</thead>
+			<tbody class="text-center "style="background-color:#cfa0e9;">
+				{% for demande in pagination %}
+					<tr>
+
+						<td>{{ demande.datedemande | date('d-m-Y') }},
+							{{ demande.datedemande | date('H:i:s') }}</td>
+						
+
+						<td>{{demande.Habitant.nom}}
+						</td>
+						<td>{{demande.Habitant.prenom}}</td>
+						<td>{{demande.Habitant.lieunaissance}}</td>
+						<td>{{demande.Habitant.fonction}}</td>
+						<td><a href="{{path('app_delegue_details_inscription',{id:demande.id})}}" class="link d-block text-center"style="color:#4B0082;">détails</a></td>
+						
+
+
+					</tr>
+
+				{% endfor %}
+
+			</tbody>
+
+		</table>
+		
+
+	</div>
+  <nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<div class="navigation container-fluid text-wrap w-auto">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+			</ul>
+		</nav>
+  </div>
+</article>
+
+{% endblock %}

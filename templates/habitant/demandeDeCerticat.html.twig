@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+{% block body %}
+<article>
+	<div class="countainer-fluid">
+    {% for message in app.flashes('info') %}
+						<div class="alert alert-danger" role="alert">
+
+							{{ message }}
+						</div>
+					{% endfor %}
+	<h1 class='text-center'>Choisissez votre quartier où vous souhaitez obtenir un certificat de domicile</h1>
+		<h2 class='text-center'>
+		
+		
+			vous êtes reconnus comme habitant dans
+			{{pagination.getTotalItemCount}}
+			quartier(s)
+		
+		
+			
+		</h2>
+	
+	<div class="table-responsive">
+
+		<table class="table  ">
+				<thead class='text-center '>
+				<tr>
+					
+					<th scope="col">Quartier</th>
+					<th scope="col">Commune</th>
+					<th scope="col">Départment</th>
+					<th scope="col">Région</th>
+					<th scope="col">Action <br> Automatique</th>
+				</tr>
+			</thead>
+			<tbody class="text-center ">
+				{% for demande in pagination %}
+					<tr>
+
+
+						<td>{{demande.quartier}}
+						</td>
+						<td>{{demande.quartier.commune}}</td>
+						<td>{{demande.quartier.commune.departement}}</td>
+						<td>{{demande.quartier.commune.departement.region}}</td>
+						<td>
+						{% if isRoleDelgue(app.user,obtenirDelegueEncours(demande.quartier.id)) %}
+				impossible
+				{% else %}
+					<a href='{{path('app_habitant_demandes_certificat',{id:demande.id})}}' class='text-decoration-none text-primary'>Obtenez Un Certificat</a>
+				{% endif %}	
+						
+						</td>
+
+					</tr>
+
+				{% endfor %}
+
+			</tbody>
+
+		</table>
+		
+
+	</div>
+  <nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<div class="navigation container-fluid text-wrap w-auto">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+			</ul>
+		</nav>
+  </div>
+</article>
+
+{% endblock %}

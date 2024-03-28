@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+{% for message in app.flashes('success') %}
+ <div class="alert alert-success" role="alert">
+   {{ message }}
+</div>
+
+{% endfor %}
+	
+
+
+			<div class="row g-3 ">
+
+				<div class="col-md-7 col-lg-8 m-auto"style="align:center">
+					{{ form_start(form, {'attr': {'novalidate': '','class':'needs-validation','align':'center'}}) }}
+					<div class="row g-3"align="center">
+
+						<div class="col-12">
+							{{ form_label(form.region, 'Région', {'label_attr': {'class': 'form-label'}}) }}
+
+							{{ form_widget(form.region) }}
+							<div class="invalid-feedback">
+								vous devez choisir une region
+							</div>
+							<div class='text-danger'>
+								{{ form_errors(form.region) }}
+							</div>
+						</div>
+						<div class="col-12">
+							{{ form_label(form.departement, 'Département', {'label_attr': {'class': 'form-label'}}) }}
+
+							{{ form_widget(form.departement) }}
+							<div class="invalid-feedback">
+								vous devez choisir un departement
+							</div>
+							<div class='text-danger'>
+								{{ form_errors(form.departement) }}
+							</div>
+						</div>
+						
+
+						<div class="col-sm-6 "  style="background-color:#4B0082;color:#fff;">
+							{{ form_row(form.valider) }}
+						</div>
+
+						<div class="col-sm-6">
+							<button class="w-100 btn btn-danger btn-lg border border-white" type="reset"  style="background-color:#555b61;color:#fff;">réinitialiser</button>
+
+						</div>
+
+
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</main>
+		</div>
+
+		<div class="mx-auto" style="height: 200px;"></div>
+		</article>
+{% endblock %}
+{% block javascripts %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+
+var $region = $('#demande_inscription1_region');
+
+// When sport gets selected ...
+$region.change(function() {
+  // ... retrieve the corresponding form.
+  var $form = $(this).closest('form');
+  // Simulate form data, but only include the selected sport value.
+  var data = {};
+  data[$region.attr('name')] = $region.val();
+  // Submit data via AJAX to the form's action path.
+  $.ajax({
+    url : $form.attr('action'),
+    type: $form.attr('method'),
+    data : data,
+    complete: function(html) {
+      // Replace current position field ...
+      $('#demande_inscription1_departement').replaceWith(
+        // ... with the returned one from the AJAX response.
+        $(html.responseText).find('#demande_inscription1_departement')
+      );
+      // Position field now displays the appropriate positions.
+    }
+  });
+});
+
+ // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+
+
+</script>
+        {% endblock %}
+

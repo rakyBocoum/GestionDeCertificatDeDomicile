@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+
+  {% for message in app.flashes('notice') %}
+  <div class="alert alert-danger" role="alert">
+   
+        {{ message }}
+		</div>
+{% endfor %}
+
+
+
+
+	
+<div>
+		<div class="container      d-flex justify-content-center align-items-center  shadow-lg p-3 mb-10  rounded ">
+			<main class="border  w-75 text-center  p-2 text-dark   shadow-lg p-3 mb-5  rounded"style="background-color:#cfa0e9">
+				<div class="py-5 text-center"  >
+				<h1 class="text-white">Veuillez compléter les champs ci-dessous </h1>
+
+			</div>
+
+			<div class="row g-3 justify-content-center text-white">
+
+				<div class="col-md-7 col-lg-8">
+					{{ form_start(form, {'attr': {'novalidate': '','class':'needs-validation'}}) }}
+					<div class="row g-3">
+
+						<div class="col-12">
+							{{ form_label(form.commune, 'Commune', {'label_attr': {'class': 'form-label'}}) }}
+
+							{{ form_widget(form.commune) }}
+							<div class="invalid-feedback">
+								obligatoire!
+							</div>
+							<div class='text-danger'>
+								{{ form_errors(form.commune) }}
+							</div>
+						</div>
+						<div class="col-12">
+							{{ form_label(form.quartier, 'Quartier', {'label_attr': {'class': 'form-label'}}) }}
+
+							{{ form_widget(form.quartier) }}
+							<div class="invalid-feedback">
+								obligatoire!
+							</div>
+							<div class='text-danger'>
+								{{ form_errors(form.quartier) }}
+							</div>
+						</div>
+						<div class="col-12">
+							{{ form_label(form.facture, 'Facture(électricité ou eau au format jpg, jpeg ou png)', {'label_attr': {'class': 'form-label'}}) }}
+
+							{{ form_widget(form.facture) }}
+							<div class="invalid-feedback">
+								obligatoire!
+							</div>
+							<div class='text-danger'>
+								{{ form_errors(form.facture) }}
+							</div>
+						</div>
+						<div class="col-12">
+							{{ form_label(form.photo, 'Photo récent(format jpg, jpeg ou png)', {'label_attr': {'class': 'form-label'}}) }}
+
+							{{ form_widget(form.photo) }}
+							<div class="invalid-feedback">
+								obligatoire!
+							</div>
+							<div class='text-danger'>
+								{{ form_errors(form.photo) }}
+							</div>
+						</div>
+
+
+						<div class="col-sm-6 ">
+							{{ form_row(form.valider) }}
+						</div>
+
+						<div class="col-sm-6">
+							<button class="w-100 btn btn-danger btn-lg border border-white"style="background-color:#555b61;color:#fff;" type="reset">réinitialiser</button>
+
+						</div>
+
+
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</main>
+		</div>
+
+		<div class="mx-auto" style="height: 200px;"></div>
+		</article>
+
+{% endblock %}
+{% block javascripts %}
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script>
+
+			var $commune = $('#demande_inscription2_commune');
+
+// When sport gets selected ...
+$commune.change(function () {
+// ... retrieve the corresponding form.
+var $form = $(this).closest('form');
+// Simulate form data, but only include the selected sport value.
+var data = {};
+data[$commune.attr('name')] = $commune.val();
+// Submit data via AJAX to the form's action path.
+$.ajax({
+url: $form.attr('action'),
+type: $form.attr('method'),
+data: data,
+complete: function (html) {
+// Replace current position field ...
+$('#demande_inscription2_quartier').replaceWith(
+// ... with the returned one from the AJAX response.
+$(html.responseText).find('#demande_inscription2_quartier')
+);
+// Position field now displays the appropriate positions.
+}
+});
+});
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+'use strict'
+
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+const forms = document.querySelectorAll('.needs-validation')
+
+// Loop over them and prevent submission
+Array.from(forms).forEach(form => {
+form.addEventListener('submit', event => {
+if (!form.checkValidity()) {
+event.preventDefault()
+event.stopPropagation()
+}
+
+form.classList.add('was-validated')
+}, false)
+})
+})()
+		</script>
+	{% endblock %}

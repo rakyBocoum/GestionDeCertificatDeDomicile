@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+	<div class="countainer-fluid">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				{{ message }}
+			</div>
+
+		{% endfor %}
+		{% for message in app.flashes('info') %}
+			<div class="alert alert-danger" role="alert">
+
+				{{ message }}
+			</div>
+		{% endfor %}
+		<h1 class='text-center'>Liste Des Délégués De Votre Commune</h1>
+		<h2 class='text-center'>
+
+			{{pagination.getTotalItemCount}}
+			délégué(s) dans votre commune
+
+
+		</h2>
+
+		<div class="table-responsive">
+
+			<table class="table border-white"border="1">
+				<thead class='text-center' style="background-color:#555b61;color:000000;">
+				<tr>
+						<th rowspan='2' scope="col" >Nom du Quartier
+						</th>
+						<th colspan='3' scope="col">Information du Delegue</th>
+						<th scope="col" colspan='2'>Nombre  D'Habitant<br>(Demande Inscription )</th>
+						<th scope="col" rowspan='2'>Action
+						</th>
+
+					</tr>
+
+					<tr>
+						
+						<th scope="col" >
+							Nom et Prénom </th>
+						<th scope="col" >
+							Date De Nommination 
+						<th scope="col" >
+							Adresse	e-mail</th>
+
+					
+						</th>
+						<th scope="col">Acceptée<br>
+						Par Le Délégué</th>
+					<th scope="col">Refusée<br>Par Le Délégué</th>
+
+					</tr>
+
+
+					
+				</thead>
+			</tr>
+		</thead>
+		<tbody class='text-center 'style="background-color:#cfa0e9">
+			{% for demande in pagination %}
+				<tr>
+
+					<td>{{ demande.nom}}</td>
+					<td>
+								
+									{{obtenirDelegueEncours(demande.id).nom}}
+									{{obtenirDelegueEncours(demande.id).prenom}}
+								
+					</td>
+					<td>
+					{{obtenirDateDeDebutDelegue(demande.id)}}
+					</td>
+					<td>{{obtenirDelegueEncours(demande.id).email}}</td>
+					<td>{{nombreDemandeInscriptionDeleue(demande.id,'accepter')}}</td>
+					<td>{{nombreDemandeInscriptionDeleue(demande.id,'refuser')}}</td>
+					<td><a type="button" class="btn "  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="remplacer le delegue" href='{{path('app_maire_remplacerdelegue',{id:demande.id})}}' > <i class="fa-solid fa-user-pen"style="color:#4B0082;"></i></a></td>
+
+			{% endfor %}
+
+		</tbody>
+
+	</table>
+
+
+</div>
+<nav aria-label="Page navigation example">
+	<ul class="pagination">
+		<div class="navigation container-fluid text-wrap w-auto">
+			{{ knp_pagination_render(pagination) }}
+		</div>
+	</ul>
+</nav></div>
+</article>
+{% endblock %}
+{% block javascripts %}
+ <script>
+ const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+ </script>
+        {% endblock %}
+		 {% block stylesheets %}
+		 <style>
+		 .custom-tooltip {
+  --bs-tooltip-bg: var(--bs-primary);
+  
+}
+
+		 </style>
+        
+        {% endblock %}
+

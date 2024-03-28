@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}REINITIALISATION MOT DE PASSE{% endblock %}
+
+{% block body %}
+
+
+
+<div class="container  min-vh-100   d-flex justify-content-center align-items-center  " > 
+	 <div class="container      d-flex justify-content-center align-items-center "> 
+		<main class="border  w-75 text-center  p-2 text-white bg-opacity-5 shadow-lg p-3 mb-5  rounded" style="background-color:#6ec1ae">
+			<div class="py-5 text-center">
+			<a href='/' title="aller à la page d'acceuil">	<img src="{{asset('image/logo.jpg')}}" class="bi me-2" width="250" height="70" role="img" aria-label="Bootstrap"></a>
+					<use xlink:href="#bootstrap"></use>
+				</img>
+				<h1 class="text-white">REINITIALISATION </h1>
+				{% for message in app.flashes('verify_email_error') %}
+				<div class="alert alert-danger" role="alert">
+
+					{{ message }}
+				</div>
+			{% endfor %}
+
+			</div>
+
+			<div class="row g-3 justify-content-center text-white">
+
+				<div class="col-md-7 col-lg-8">
+					{{ form_start(requestForm, {'attr': {'novalidate': '','class':'needs-validation'}}) }}
+					<div class="row g-3">
+				
+						<div class="col-12">
+							{{ form_label(requestForm.email, 'EMAIL', {'label_attr': {'class': 'form-label'}}) }}
+
+							{{ form_widget(requestForm.email) }}
+							<div class="invalid-feedback">
+								obligatoire!
+							</div>
+               <div class='text-danger'>
+								{{ form_errors(requestForm.email) }}
+							</div>
+						</div>
+						<div class="col  w-75 align-items-center">
+							{{ form_row(requestForm.valider) }}
+						</div>
+
+						
+
+
+						{{ form_end(requestForm) }}
+					</div>
+				</div>
+			</main>
+			</div>
+
+			<div class="mx-auto" style="height: 200px;">
+		</div>
+
+{% endblock %}
+
+{% block javascripts %}
+  <script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+ 
+</div>
+
+
+
+	
+	{% endblock %}

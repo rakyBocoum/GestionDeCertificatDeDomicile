@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+{% block footer %}
+	{{ include('footer.html.twig') }}
+{% endblock %}
+{% block body %}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+
+
+	
+
+					<h1 class="text-white">MODIFICATION DE COMPTE</h1><br>
+					<b class="text-white"> <marquee> Remplir uniquement les données que vous voulez modifer.</marquee></b>
+
+				</div>
+
+				<div class="row g-3 justify-content-center ">
+
+					<div class="col-md-7 col-lg-8">
+						{{ form_start(registrationForm, {'attr': {'novalidate': ''}}) }}
+						<div class="row g-3">
+						   <div class="col-sm-6">
+						{{ form_label(registrationForm.nom, 'NOM', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.nom) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.nom) }}
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						{{ form_label(registrationForm.prenom, 'PRENOM', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.prenom) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.prenom) }}
+						</div>
+					</div>
+					<div class="col-sm-12">
+						{{ form_label(registrationForm.lieunaissance, 'LIEU DE NAISSANCE', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.lieunaissance) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.lieunaissance) }}
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						{{ form_label(registrationForm.datenaissance, 'DATE DE NAISSANCE', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.datenaissance) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.datenaissance) }}
+						</div>
+					</div>
+
+
+							<div class="col-sm-12">
+								{{ form_label(registrationForm.fonction, 'FONCTION', {'label_attr': {'class': 'form-label'}}) }}
+								{{ form_widget(registrationForm.fonction) }}
+								<div class="invalid-feedback">
+									obligatoire!
+								</div>
+								<div class='text-danger'>
+									{{ form_errors(registrationForm.fonction) }}
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								{{ form_label(registrationForm.telephone, 'TELEPHONE', {'label_attr': {'class': 'form-label'}}) }}
+								{{ form_widget(registrationForm.telephone) }}
+								<div class="invalid-feedback">
+									obligatoire!
+								</div>
+								<div class='text-danger'>
+									{{ form_errors(registrationForm.telephone) }}
+								</div>
+							</div>
+
+
+							<div class="col-12">
+								{{ form_label(registrationForm.email, 'EMAIL', {'label_attr': {'class': 'form-label'}}) }}
+
+								{{ form_widget(registrationForm.email) }}
+								<div class="invalid-feedback">
+									obligatoire!
+								</div>
+								<div class='text-danger'>
+									{{ form_errors(registrationForm.email) }}
+								</div>
+							</div>
+							<div class="col-12">
+								{{ form_label(registrationForm.plainPassword.first, 'MOT DE PASSE', {'label_attr': {'class': 'form-label'}}) }}
+
+								{{ form_widget(registrationForm.plainPassword.first) }}
+								<div class="invalid-feedback">
+									obligatoire!
+								</div>
+								<div class='text-danger'>
+									{{ form_errors(registrationForm.plainPassword.first) }}
+								</div>
+							</div>
+							<div class="col-12">
+								{{ form_label(registrationForm.plainPassword.second, 'CONFIRMATION DU MOT DE PASSE', {'label_attr': {'class': 'form-label'}}) }}
+
+								{{ form_widget(registrationForm.plainPassword.second) }}
+								<div class="invalid-feedback">
+									obligatoire!
+								</div>
+								<div class='text-danger'>
+									{{ form_errors(registrationForm.plainPassword.first) }}
+								</div>
+							</div>
+							<div class="col-sm-6 ">
+								{{ form_row(registrationForm.valider) }}
+							</div>
+
+							<div class="col-sm-6">
+								<button class="w-100 btn btn-danger btn-lg border border-white" type="reset">réinitialiser</button>
+
+							</div>
+
+
+							{{ form_end(registrationForm) }}
+						</div>
+					</div>
+				</main>
+			</div>
+
+			<div class="mx-auto" style="height: 200px;"></div>
+
+		</div>
+
+	{% endblock %}

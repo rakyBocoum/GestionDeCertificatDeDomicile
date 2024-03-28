@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+	<div class="countainer-fluid">
+		{% for message in app.flashes('info') %}
+			<div class="alert alert-danger" role="alert">
+
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				{{ message }}
+			</div>
+
+		{% endfor %}
+
+
+		<div class="card mb-3 m-auto" style="max-width: 25rem; background-color:#4b0082;">
+
+			<div class="card-header mx-auto" style="background-color:#555b61;color:#ffff;">
+
+				<h1 class='text-center'>Information Du Certificat</h1>
+			</div>
+			<div class="card-body">
+				<ul class="list-group list-group  ">
+					<li class="list-group-item ">
+						<ul class="list-group list-group-horizontal  ">
+							<li class="list-group-item "style="background-color:#4B0082;color:#ffff;" >Nom Du Quartier</li>
+							<li class="list-group-item">{{certificat.quartier}}</li>
+
+						</ul>
+					</li>
+					
+					<li class="list-group-item">
+						<ul class="list-group list-group-horizontal">
+							<li class="list-group-item "style="background-color:#4b0082;color:#ffff;">Crée par
+							</li>
+							<li class="list-group-item">
+								{% if isRoleDelgue(certificat.delegue,obtenirDelegueEncours(certificat.quartier.id)) %}
+									le délégué actuelle
+									{{certificat.delegue.prenom}}
+									{{certificat.delegue.nom}}
+								{% else %}
+									l'ancien(ne) délégué(e)
+									{{certificat.delegue.prenom}}
+									{{certificat.delegue.nom}}
+								{% endif %}
+							</li>
+
+						</ul>
+					</li>
+					<li class="list-group-item">
+						<ul class="list-group list-group-horizontal">
+							<li class="list-group-item "style="background-color:#4b0082;color:#ffff;">Date De Création
+							</li>
+							<li class="list-group-item">
+
+								<td>{{ certificat.datedemande | date('d-m-Y') }},{{ certificat.datedemande | date('H:i:s') }}
+								</td>
+							</li>
+
+						</ul>
+					</li>
+				</ul>
+
+			</div>
+
+
+		</div>
+
+	</div>
+</article>
+
+{% endblock %}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Certificat</title>
+	</head>
+
+	<style>
+	table,tr,td{
+		border:solid;
+	}
+	img{
+		align:center;
+	}
+	table{
+  border-collapse: collapse;
+}
+
+th, td{
+  border: 1px solid black;
+  padding: 10px;
+}
+
+	</style>
+	<body>
+	<p style='text-align:center'> <img src="{{image}}"  width='40%' height='10%' ></p>
+		<div class="countainer-fluid">
+			{% for message in app.flashes('info') %}
+				<div class="alert alert-danger" role="alert">
+
+					{{ message }}
+				</div>
+			{% endfor %}
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success" role="alert">
+					{{ message }}
+				</div>
+
+			{% endfor %}
+			<h4 style='text-align:center' >Liste Des  Habitants De Votre
+				{% if is_granted('ROLE_MAIRE')   %}
+					Commune
+				{% else %}
+					Quartier
+				{% endif %}
+			</h4>
+			<h4 style='text-align:center'>
+
+				{{pagination.getTotalItemCount}}
+				Habitant(s)
+
+
+			</h4>
+
+			<div >
+
+				<table style='margin:auto;'>
+					<thead >
+						<tr>
+
+							<th >Nom</th>
+							<th >Prénom</th>
+							<th >Date De Naissance</th>
+							<th >Lieu De Naissance</th>
+							<th >Fonction</th>
+							{% if is_granted('ROLE_MAIRE')   %}
+								<th> Quartier</th>
+								<th >Rôle</th>
+							{% endif %}
+							
+
+
+						</tr>
+					</thead>
+					<tbody class="text-center text-white bg-success p-2 text-white bg-opacity-75">
+						{% if is_granted('ROLE_DELEGUE')   %}
+							{% for demande in pagination %}
+								<tr>
+									<td>{{demande.Habitant.nom}}
+									</td>
+									<td>{{demande.Habitant.prenom}}</td>
+									<td>{{ demande.Habitant.datenaissance | date('d-m-Y') }}</td>
+									<td>{{demande.Habitant.lieunaissance}}</td>
+									<td>{{demande.Habitant.fonction}}</td>
+									
+
+								</tr>
+
+							{% endfor %}
+						{% else %}
+							{% for demande in pagination %}
+								<tr>
+									<td>{{ maireListeHabitant(demande,'nom')}}
+									</td>
+									<td>{{ maireListeHabitant(demande,'prenom')}}</td>
+									<td>{{ maireListeHabitant(demande,'ddn') | date('d-m-Y')}}</td>
+									<td>{{ maireListeHabitant(demande,'ldn')}}</td>
+									<td>{{ maireListeHabitant(demande,'fonction')}}</td>
+
+									<td>
+										{{ maireListeHabitant(demande,'quartier')}}
+									</td>
+
+									<td>
+										{{ maireListeHabitant(demande,'role')}}
+									</td>
+
+
+								</tr>
+
+							{% endfor %}
+
+						{% endif %}
+
+
+					</tbody>
+
+				</table>
+
+
+			</div>
+			
+		</div>
+	</body>
+</html>

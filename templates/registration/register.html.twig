@@ -1,0 +1,202 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}
+{% include "header.html copy.twig" %}
+{% endblock %}
+{% block body %}
+
+  {# <div class="form-floating w-100  ">
+    <input type="email" value="{{ last_username }}"  name="email" id="inputEmail" class="form-control"  autocomplete="email" required autofocus>
+        <label for="floatingInput"><i class="fa-solid fa-envelope"></i> domicile@gmail.com</label>
+        </div> #}
+
+
+{# <div class="container  min-vh-100   d-flex justify-content-center align-items-center  "> #}
+
+
+	<div class="container      d-flex justify-content-center align-items-center  shadow-lg p-3 mb-10  rounded " style="display:flex; flex-direction:row; align-items: center;">
+	<div id="left" style="flex:1;padding: 20px;">
+				<img src="{{asset('node_modules/img/photos/register.jpg')}}" alt="Ma belle image">
+			</div>
+		<main class="border  w-50 text-center   p-2 text-dark   shadow-lg p-3 mb-5  rounded" style="background-color:#cbcdd1;" >
+			
+		<div class="row g-3 justify-content-center text-black"style="align:right;">
+			<div class="py-5 text-center"style="flex:1;padding: 20px;">
+				
+		
+			<h1 class="text-black"style="align:right;">INSCRIPTION
+				{{ form_errors(registrationForm) }}</h1>
+			</div>
+
+
+			<div class="col-md-7 col-lg-8"style="align:right;">
+				{{ form_start(registrationForm, {'attr': {'novalidate': '','class':'needs-validation'}}) }}
+				<div class="row g-3">
+					 {# <div class="form-floating w-50  "> #}
+					 <div class="col-sm-6">
+						{{ form_label(registrationForm.nom, '', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.nom) }}
+						 {# <label for="floatingInput"><i class="fa-solid fa-envelope"></i> domicile@gmail.com</label> #}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.nom) }}
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						{{ form_label(registrationForm.prenom, 'PRENOM', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.prenom) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.prenom) }}
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						{{ form_label(registrationForm.lieunaissance, 'LIEU DE NAISSANCE', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.lieunaissance) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.lieunaissance) }}
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						{{ form_label(registrationForm.datenaissance, 'DATE DE NAISSANCE', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.datenaissance) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.datenaissance) }}
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						{{ form_label(registrationForm.fonction, 'FONCTION', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.fonction) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.fonction) }}
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						{{ form_label(registrationForm.telephone, 'TELEPHONE', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(registrationForm.telephone) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.telephone) }}
+						</div>
+					</div>
+
+
+					<div class="col-12">
+						{{ form_label(registrationForm.email, 'EMAIL', {'label_attr': {'class': 'form-label'}}) }}
+
+						{{ form_widget(registrationForm.email) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.email) }}
+						</div>
+					</div>
+					<div class="col-12">
+						{{ form_label(registrationForm.plainPassword.first, 'MOT DE PASSE', {'label_attr': {'class': 'form-label'}}) }}
+
+						{{ form_widget(registrationForm.plainPassword.first) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.plainPassword.first) }}
+						</div>
+					</div>
+					<div class="col-12">
+						{{ form_label(registrationForm.plainPassword.second, 'CONFIRMATION DU MOT DE PASSE', {'label_attr': {'class': 'form-label'}}) }}
+
+						{{ form_widget(registrationForm.plainPassword.second) }}
+						<div class="invalid-feedback">
+							obligatoire!
+						</div>
+						<div class='text-danger'>
+							{{ form_errors(registrationForm.plainPassword.first) }}
+						</div>
+					</div>
+					<div class="col-12">
+						{{ form_widget(registrationForm.agreeTerms) }}
+						{{ form_label(registrationForm.agreeTerms, 'J\'ACCEPTETE LES CONDITIONS', {'label_attr': {'class': 'form-check-label'}}) }}
+							<div class="invalid-feedback">
+								obligatoire!
+							</div>
+               <div class='text-danger'>
+								{{ form_errors(registrationForm.agreeTerms) }}
+							</div>
+						</div>
+						<div class="col-sm-6 " >
+							{{ form_row(registrationForm.valider) }}
+						</div>
+
+						<div class="col-sm-6">
+							<button class="w-100 btn btn-danger  btn-lg border border-white"  type="reset">Réinitialiser</button>
+
+						</div>
+
+
+						{{ form_end(registrationForm) }}
+					</div>
+			</div>
+			</main>
+			</div>
+
+			<div class="mx-auto" style="height: 200px;">
+		</div>
+
+</div>
+	{% endblock %}
+	{% block footer %}
+{% include "footer.html.twig" %}
+{% endblock %}
+	{% block javascripts %}
+  <script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+ 
+
+
+
+
+	
+	{% endblock %}

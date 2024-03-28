@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+	<div class="countainer-fluid">
+	<h1 class='text-center'>Liste De Mes Demandes D'inscription</h1>
+		<h2 class='text-center'>
+		
+		{{pagination.getTotalItemCount}} demande(s) d'inscription(s) effectué(es)
+		
+		
+			
+		</h2>
+	
+	<div class="table-responsive">
+
+		<table class="table  ">
+				<thead class='text-center '>
+				<tr>
+					<th scope="col">Date De Demande</th>
+					<th scope="col">Date De Traitement</th>
+					<th scope="col">Quartier</th>
+					<th scope="col">Commune</th>
+					<th scope="col">Départment</th>
+					<th scope="col">Région</th>
+					<th scope="col">Etat De Demande</th>
+				</tr>
+			</thead>
+				<tbody class="text-center ">
+				{% for demande in pagination %}
+					<tr>
+
+						<td>{{ demande.datedemande | date('d-m-Y') }},
+							{{ demande.datedemande | date('H:i:s') }}</td>
+						{% if demande.datetraitement %}
+							<td>{{ demande.datetraitement | date('d-m-Y') }},
+								{{ demande.datetraitement | date('H:i:s') }}</td>
+						{% else %}
+							<td>en attente
+							</td>
+						{% endif %}
+
+						<td>{{demande.quartier}}
+						</td>
+						<td>{{demande.quartier.commune}}</td>
+						<td>{{demande.quartier.commune.departement}}</td>
+						<td>{{demande.quartier.commune.departement.region}}</td>
+						<td>{{etatDemande(demande.etatdemande,demande.delegue)}}</td>
+
+					</tr>
+
+				{% endfor %}
+
+			</tbody>
+
+		</table>
+		
+
+	</div>
+  <nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<div class="navigation container-fluid text-wrap w-auto">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+			</ul>
+		</nav>
+  </div>
+</article>
+
+{% endblock %}

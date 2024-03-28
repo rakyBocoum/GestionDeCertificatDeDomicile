@@ -1,3 +1,14 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+# config/routes.yaml
+dashboard:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index
+
+admin_commune_lister:
+    path: "/admin/commune/lister"
+    controller: App\Controller\Admin\DashboardController::CommuneList
+   
+# ...
+

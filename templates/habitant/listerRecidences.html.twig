@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+	<div class="countainer-fluid">
+		{% for message in app.flashes('info') %}
+						<div class="alert alert-danger" role="alert">
+
+							{{ message }}
+						</div>
+					{% endfor %}
+					{% for message in app.flashes('success') %}
+						<div class="alert alert-success" role="alert">
+							{{ message }}
+						</div>
+
+					{% endfor %}
+		<h1 class='text-center'>Mes quartiers</h1>
+		<h2 class='text-center'>
+
+			vous êtes reconnus comme habitant dans
+			{{pagination.getTotalItemCount}}
+			quartier(s)
+
+
+		</h2>
+
+		{% for demande in pagination %}
+
+
+
+
+			<div class="card ">
+
+				<div class="card-header mx-auto">
+					<ul class="list-group list-group-horizontal">
+						<li class="list-group-item  text-white " style="background-color:#4B0082">Nom Du Quartier</li>
+						<li class="list-group-item">{{demande.quartier}}</li>
+
+					</ul>
+
+				</div>
+				<div class="card-body">
+					<ul class="list-group list-group  ">
+						<li class="list-group-item ">
+						<ul class="list-group list-group-horizontal  ">
+						<li class="list-group-item  text-white"  style="background-color:#4B0082">Commune</li>
+						<li class="list-group-item">{{demande.quartier.commune}}</li>
+
+					</ul>
+						</li>
+						<li class="list-group-item">
+						<ul class="list-group list-group-horizontal">
+						<li class="list-group-item  text-white" style="background-color:#4B0082">Département</li>
+						<li class="list-group-item">{{demande.quartier.commune.departement}}</li>
+
+					</ul>
+						</li>
+						<li class="list-group-item">
+						<ul class="list-group list-group-horizontal">
+						<li class="list-group-item  text-white"style="background-color:#4B0082">Région</li>
+						<li class="list-group-item">{{demande.quartier.commune.departement.region}}</li>
+
+					</ul>
+						</li>
+						<li class="list-group-item">
+						<ul class="list-group list-group-horizontal">
+						<li class="list-group-item  text-white" style="background-color:#4B0082">Délégué Actuel </li>
+						<li class="list-group-item">
+						{% if obtenirDelegueEncours(demande.quartier.id) %}
+						{{obtenirDelegueEncours(demande.quartier.id).prenom}}
+						{{obtenirDelegueEncours(demande.quartier.id).nom}}
+						{% else %}
+							Pas De Délégué
+						{% endif %}
+						
+						</li>
+
+					</ul>
+						</li>
+						<li class="list-group-item">
+						<ul class="list-group list-group-horizontal">
+						<li class="list-group-item  text-white"style="background-color:#4B0082">Maire Actuel</li>
+						<li class="list-group-item">
+						{{obtenirMaireEncours(demande.quartier.commune.id).prenom}}
+						{{obtenirMaireEncours(demande.quartier.commune.id).nom}}
+						
+						</li>
+
+					</ul>
+						</li>
+					</ul>
+
+				</div>
+				{% if isRoleDelgue(app.user,obtenirDelegueEncours(demande.quartier.id)) %}
+				<p class='text-center'>Vous êtes le délégué de ce quartier</p>
+				{% else %}
+					<div class="card-footer bg-transparent border-success">
+
+
+					<button class="btn btn-lg w-100 btn-danger" type="button">
+						<a href="{{path('app_habitant_quitter_residence',{id:demande.id})}}" class='text-decoration-none text-white'>Quitter le Quartier</a>
+					</button>
+
+
+				</div>
+				{% endif %}
+				
+				
+
+			</div>
+
+		{% endfor %}
+
+
+</article>
+{% endblock %}

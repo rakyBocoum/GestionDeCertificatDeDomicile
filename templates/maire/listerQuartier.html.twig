@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+
+	<div class="countainer-fluid">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				{{ message }}
+			</div>
+
+		{% endfor %}
+		{% for message in app.flashes('info') %}
+			<div class="alert alert-danger" role="alert">
+
+				{{ message }}
+			</div>
+		{% endfor %}
+		<h1 class='text-center'>Liste Des Quartiers De Votre Commune N'ayant Pas De délégués</h1>
+		<h2 class='text-center'>
+
+			{{pagination.getTotalItemCount}}
+			Quartier(s)
+
+
+		</h2>
+
+		<div class="table-responsive" >
+
+				<table class="table table-bordered  border-white ">
+				<thead class='text-center text-white 'style="background-color:#555b61;color:000000;">
+					<tr>
+						<th scope="col">Nom
+							
+							du
+							quartier
+						</th>
+                        <th scope="col">Nombre Habitant<br>(inscription accepté)<br>du Quartier
+						</th>
+
+						<th scope="col">Action
+														sur
+														
+														le quartier</th>
+						<th scope="col">Certificat
+						</th>
+						<th scope="col">Actions
+						</th>	
+
+
+					</tr>
+				</thead>
+								<tbody class="text-center text-white  p-2 text-white"  style="background-color:#cfa0e9">
+					{% for demande in pagination %}
+						<tr>
+
+							<td >{{ demande.nom}}</td>
+							<td>
+								{% if obtenirDelegueEncours(demande.id) %}
+									{{obtenirDelegueEncours(demande.id).nom}}
+									{{obtenirDelegueEncours(demande.id).prenom}}
+								{% else %}
+									Pas De délégué
+								{% endif %}
+							</td>
+							<td>
+								{{nombreHabitant(demande.id)}}
+							</td>
+							<td>
+								{{nombreCertificatQuartier(demande.id)}}
+							</td>
+							<td>
+							{% if obtenirDelegueEncours(demande.id) %}
+							<a type="button" class="btn bg-white"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="remplacer le delegue" href='{{path('app_maire_remplacerdelegue',{id:demande.id})}}'> <i class="fa-solid fa-user-pen  "style="color:#4B0082;"  ></i></a>&emsp;&emsp;
+							<a type="button" class="btn bg-white"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="renommer le quartier" href='{{path('app_maire_renommerunquartier',{id:demande.id})}}' > <i class="fa-solid fa-house "style="color:#4B0082;"></i> </a>
+							{% else %}
+						     <a type="button" class="btn bg-white"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="ajouter un delegue" href='{{path('app_maire_ajouterdelegue',{id:demande.id})}}' > <i class="fa-solid fa-user-pen "style="color:#4B0082;"></i></a>&emsp;&emsp;
+	                        <a type="button" class="btn bg-white"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="renommer le quartier" href='{{path('app_maire_renommerunquartier',{id:demande.id})}}' > <i class="fa-solid fa-house "style="color:#4B0082;"></i> </a>
+							{% endif %}
+							</td>
+							
+							
+
+
+						</tr>
+
+					{% endfor %}
+
+				</tbody>
+
+			</table>
+
+
+		</div>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<div class="navigation container-fluid text-wrap w-auto">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+			</ul>
+		</nav>
+	</div>
+
+</article>
+{% endblock %}
+{% block javascripts %}
+ <script>
+ const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+ </script>
+        {% endblock %}
+		 {% block stylesheets %}
+		 <style>
+		 .custom-tooltip {
+  --bs-tooltip-bg: var(--bs-primary);
+  
+}
+
+		 </style>
+        
+        {% endblock %}

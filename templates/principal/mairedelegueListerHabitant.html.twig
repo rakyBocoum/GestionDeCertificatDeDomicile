@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+	{{ include('header.html.twig') }}
+{% endblock %}
+
+
+
+{% block body %}
+<article>
+	<div class="countainer-fluid">
+	{% for message in app.flashes('info') %}
+						<div class="alert alert-danger" role="alert">
+
+							{{ message }}
+						</div>
+					{% endfor %}
+					{% for message in app.flashes('success') %}
+						<div class="alert alert-success" role="alert">
+							{{ message }}
+						</div>
+
+					{% endfor %}
+		<h1 class='text-center'>Liste Des  Habitants De Votre
+			{% if is_granted('ROLE_MAIRE')   %}
+				Commune
+			{% else %}
+				Quartier
+			{% endif %}
+		</h1>
+		<h2 class='text-center'>
+
+			{{pagination.getTotalItemCount}}
+			Habitant(s) <br>
+
+		 <a href="{{path('app_mairedelegue_telecharger_habitant')}}" class="text-decoration-none"style="color:#4B0082;">Telechager  <i class="fa-solid fa-download"></i></a>
+		</h2>
+		
+
+		<div class="table-responsive">
+
+			<table class="table table-bordered  border-white">
+				<thead class='text-center text-white 'style="background-color:#555b61;">
+					<tr>
+
+						<th scope="col">Nom</th>
+						<th scope="col">Prénom</th>
+						<th scope="col">Date De Naissance</th>
+						<th scope="col">Lieu De Naissance</th>
+						<th scope="col">Fonction</th>
+						{% if is_granted('ROLE_MAIRE')   %}
+							<th scope="col">Quartier</th>
+							<th scope="col">Rôle</th>
+						{% endif %}
+						{% if is_granted('ROLE_DELEGUE')   %}
+							<th scope="col">Action
+								<br>sur<br>L'Habitant</th>
+						{% endif %}
+
+
+					</tr>
+				</thead>
+				<tbody class="text-center text-white  p-2 text-white bg-opacity-75"style="background-color:#cfa0e9;">
+					{% if is_granted('ROLE_DELEGUE')   %}
+						{% for demande in pagination %}
+							<tr>
+								<td>{{demande.Habitant.nom}}
+								</td>
+								<td>{{demande.Habitant.prenom}}</td>
+								<td>{{ demande.Habitant.datenaissance | date('d-m-Y') }}</td>
+								<td>{{demande.Habitant.lieunaissance}}</td>
+								<td>{{demande.Habitant.fonction}}</td>
+								{% if isRoleDelgue(demande.Habitant,app.user)   %}
+									<td>
+										impossible
+									</td>
+								{% else %}
+									<td>
+										<a href="{{path('app_delegue_retirer_inscription',{id:demande.id})}}" class="link-primary d-block text-center">retirer</a>
+									</td>
+								{% endif %}
+
+
+							</tr>
+
+						{% endfor %}
+					{% else %}
+						{% for demande in pagination %}
+							<tr>
+								<td>{{ maireListeHabitant(demande,'nom')}}
+								</td>
+								<td>{{ maireListeHabitant(demande,'prenom')}}</td>
+								<td>{{ maireListeHabitant(demande,'ddn') | date('d-m-Y')}}</td>
+								<td>{{ maireListeHabitant(demande,'ldn')}}</td>
+								<td>{{ maireListeHabitant(demande,'fonction')}}</td>
+								
+									<td>
+									 {{ maireListeHabitant(demande,'quartier')}}
+									</td>
+								
+									<td>
+										{{ maireListeHabitant(demande,'role')}}
+									</td>
+								
+
+
+							</tr>
+
+						{% endfor %}
+
+					{% endif %}
+
+
+				</tbody>
+
+			</table>
+
+
+		</div>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<div class="navigation container-fluid text-wrap w-auto">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+			</ul>
+		</nav>
+	</div>
+</article>
+
+{% endblock %}

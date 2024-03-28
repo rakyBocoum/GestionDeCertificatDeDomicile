@@ -1,0 +1,54 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block body %}
+{% block content %}
+
+
+    <h1>Liste des communes</h1>
+<div class="table-responsive">
+
+			<table class="table table-bordered border-black " border="1">
+    
+        <thead class='text-center text-white 'style="background-color:#555b61;color:000000;">
+            <tr>
+              
+              <th scope="col">Nom Commune</th>
+              <th scope="col">Nom Maire</th>
+              <th scope="col">Actions</th>
+                 
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for commune in Commune %}
+                <tr>
+                    <td>{{ commune.nom }}</td>
+                    <td>
+								{% if obtenirMaireEncours(commune.id) %}
+									{{obtenirMaireEncours(commune.id).nom}}
+									{{obtenirMaireEncours(commune.id).prenom}}
+								{% else %}
+									Pas De Maire
+								{% endif %}
+					</td>
+                    <td>
+                    <div align="center">
+							{% if obtenirMaireEncours(commune.id) %}
+							<a type="button" class="btn bg-white"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="remplacer le delegue" href='{{path('app_admin_remplacerMaire',{id:commune.id})}}'> <i class="fa-solid fa-user-pen  "style="color:#4B0082;"  ></i></a>&emsp;&emsp;
+							
+							{% else %}
+						     <a type="button" class="btn bg-white"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="ajouter un delegue" href='{{path('app_admin_ajouterMaire',{id:commune.id})}}' > <i class="fa-solid fa-user-pen "style="color:#4B0082;"></i></a>&emsp;&emsp;
+	                        
+							{% endif %}
+                            </div>
+							</td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+{% endblock %}
+{% endblock %}
+

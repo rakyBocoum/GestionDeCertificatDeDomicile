@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Certificat</title>
+	</head>
+</html></head><body >
+
+
+	<p style="text-align:center; font-size:30px;"><img height='150px' src='{{image}}'/><br/>
+		<strong>Région De
+			{{region.nom}}</strong><br/>
+		<strong>Département De
+			{{departement.nom}}</strong><br/>
+		<strong>Commune de
+			{{commune.nom}}</strong><br/>
+
+	</p>
+	<h1 style="text-align:center;text-transform: uppercase;">
+		Certificat de domicile
+	</h1>
+	<p style='font-size:30px;'>Je soussigné, Moi
+		{{delegue.prenom}}
+		{{delegue.nom}}
+		délégue de
+								         quartier, certifie que le (la) nommé(e)
+		{{personne.prenom}}
+		{{personne.nom}}
+		Né(e) le
+		{{personne.datenaissance | date('d-m-Y') }}
+		à
+		{{ personne.lieunaissance}}
+		et qui a comme fonction
+
+		{{ personne.fonction}}
+		habite bel et bien dans mon quartier
+		{{quartier.nom}}
+<p>En foi de quoi, ce présent certificat lui est délivré pour servir et faire valoir ce de droit</P>
+</div>
+
+<div style="text-align:right;">
+	<img  src="{{qrcode}}"/>
+</div>
+</body>
+</html>
